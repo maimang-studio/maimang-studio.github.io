@@ -1,0 +1,56 @@
+{
+  "homeIntro": "我是麦芒。我关注门店里的具体问题，比如工具怎么装、杯盖怎么拿、新任务怎么交接。这里记录了我为这些问题做过的产品设计。",
+  "catalogTitle": "我的作品集",
+  "catalogIntro": "从安装引导到吧台收纳，这里收录了我的产品案例与正在整理的设计方案。",
+  "projects": [
+    {
+      "id": "installer",
+      "title": "Codex 安装助手",
+      "summary": "在八步安装工作台中查看进度、逐项操作，或诊断并修复连接故障。",
+      "intro": "Windows 逐步安装工作台。点击下方任一步骤查看操作，也可以从当前进度继续安装。",
+      "cover": "/assets/covers/6f67fa12362e643a25ce7dfa68bbb7a8155abbce1a94cec4b471ebc06ad4cfb2.png"
+    },
+    {
+      "id": "cup-rack",
+      "title": "模块化杯架",
+      "summary": "围绕杯子、杯盖与吸管的取用，把吧台收纳拆成可组合的独立模块。",
+      "intro": "",
+      "cover": "/assets/covers/89da796ac1279281cf601848dc45b462b2fee2456246c1ac226dc9fe5d476ec1.webp"
+    },
+    {
+      "id": "launch",
+      "title": "新品上新流程",
+      "summary": "梳理新品从准备到门店执行的关键交接，呈现任务与确认节点。",
+      "intro": "",
+      "cover": ""
+    },
+    {
+      "id": "workbench",
+      "title": "AI 工作台",
+      "summary": "以任务为入口，探索如何组织常用 AI 工具、上下文与产出。",
+      "intro": "",
+      "cover": ""
+    },
+    {
+      "id": "display",
+      "title": "门店智能陈列检测助手",
+      "summary": "探索从陈列照片到人工复核的路径，明确识别建议与人工判断的边界。",
+      "intro": "",
+      "cover": ""
+    },
+    {
+      "id": "product-image",
+      "title": "AI 商品图创作",
+      "summary": "从商品素材与画面要求出发，规划场景图的生成、比较与选图流程。",
+      "intro": "",
+      "cover": ""
+    },
+    {
+      "id": "product-video",
+      "title": "AI 视频生成",
+      "summary": "把商品卖点整理为分镜，探索从镜头描述到视频审阅的创作流程。",
+      "intro": "",
+      "cover": ""
+    }
+  ]
+}
