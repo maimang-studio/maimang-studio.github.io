@@ -9,8 +9,9 @@ if (document.body.classList.contains('home')) {
   }
 }
 const filters = [...document.querySelectorAll('[data-filter]')];
-const cards = [...document.querySelectorAll('[data-group]')];
+
 function filterProjects(selected = new URL(location.href).searchParams.get('group') || 'all') {
+  const cards = [...document.querySelectorAll('[data-group]')];
   const group = filters.some(button => button.dataset.filter === selected) ? selected : 'all';
   for (const button of filters) button.setAttribute('aria-pressed', String(button.dataset.filter === group));
   for (const card of cards) card.hidden = group !== 'all' && card.dataset.group !== group;

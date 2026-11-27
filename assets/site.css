@@ -18,3 +18,13 @@
   .featured-heading { flex-wrap:wrap; gap:6px 12px; }
   .catalog-wrap .crumb { margin-bottom:20px; }
 }
+
+.cover-photo,.cover-contain { width:100%;height:100%;display:block; }
+.cardart>img.cover-photo,.listicon>img.cover-photo { object-fit:cover; }
+.cardart>img.cover-contain,.listicon>img.cover-contain { object-fit:contain;object-position:center;background:#eff3f0; }
+.listicon:has(img) { overflow:hidden;flex:none; }
+.project-symbol { display:grid;place-items:center;color:#4f6c57;background:#e6eee1; }
+.cardart.project-symbol { font:3rem Georgia,serif; }
+.manage-link { display:block;text-align:center;font-size:.82rem;color:#526358;text-decoration:underline;padding:0 0 12px; }
+.draft-banner { display:flex;justify-content:center;gap:1.5em;flex-wrap:wrap;padding:8px 14px;color:#45361c;background:#fff0cb;font-size:.9rem; }
+.draft-banner a { text-decoration:underline; }

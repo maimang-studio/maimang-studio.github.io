@@ -1,0 +1,40 @@
+media:
+  input: editor-media
+  output: /editor-media
+  extensions: [png, jpg, jpeg, webp]
+  rename: random
+content:
+  - name: portfolio
+    label: 作品集草稿
+    type: file
+    path: editor-data/draft.json
+    format: json
+    fields:
+      - {name: homeIntro, label: 首页个人简介, type: text, required: true}
+      - {name: catalogTitle, label: 作品集页标题, type: string, required: true}
+      - {name: catalogIntro, label: 作品集页简介, type: text, required: true}
+      - name: projects
+        label: 项目展示顺序
+        description: 调整列表顺序即可排序。前两项同时显示在首页的代表作品区。
+        type: object
+        list:
+          min: 7
+          max: 7
+          collapsible:
+            collapsed: true
+            summary: "{index} · {fields.title}"
+        fields:
+          - {name: id, label: 项目标识, type: string, readonly: true, hidden: true}
+          - {name: title, label: 项目标题, type: string, required: true}
+          - {name: summary, label: 卡片简介, type: text, required: true}
+          - {name: intro, label: 案例页简介, type: text, description: 留空时沿用卡片简介。}
+          - {name: cover, label: 项目封面, type: image, description: 可选择或上传图片。留空时显示项目图标。}
+    actions:
+      - name: publish
+        label: 发布到正式作品集
+        workflow: publish-portfolio.yml
+        ref: main
+        confirm:
+          title: 发布这份已保存的草稿？
+          message: 请先保存并预览。发布后，访客将在原网址看到这些内容。
+          button: 确认发布

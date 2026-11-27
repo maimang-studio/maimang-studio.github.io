@@ -1,0 +1,35 @@
+name: 发布作品集
+on:
+  workflow_dispatch:
+    inputs:
+      payload:
+        description: Pages CMS operation context
+        required: false
+        type: string
+permissions:
+  contents: write
+  pages: write
+concurrency:
+  group: publish-portfolio
+  cancel-in-progress: false
+jobs:
+  publish:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: 核对项目并生成公开版本
+        run: python3 .github/publish_portfolio.py
+      - name: 保存公开内容
+        run: |
+          git config user.name '麦芒'
+          git config user.email 'portfolio@maimang-studio.invalid'
+          git add -- assets/covers assets/portfolio.json
+          if ! git diff --cached --quiet; then
+            git commit -m '发布已确认的作品集内容'
+            git push origin HEAD:main
+          fi
+      - name: 更新 GitHub Pages
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api --method POST "repos/$GITHUB_REPOSITORY/pages/builds"
