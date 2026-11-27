@@ -1,16 +1,262 @@
 <!doctype html>
-<html lang="zh-CN"><head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="color-scheme" content="light"><meta name="robots" content="noindex,nofollow">
-<meta name="author" content="麦芒">
-<meta name="description" content="麦芒的产品手记，记录门店现场的业务问题、AI 产品原型与设计案例。">
-<title>安装助手脱敏 Demo · 麦芒的产品手记</title>
-<link rel="icon" href="../assets/icon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="../assets/site.css"><script src="../assets/site.js" defer></script>
-</head><body class="portfolio">
-<a class="skip" href="#main">跳到正文</a>
-<header><div class="wrap nav"><a class="brand" href="../index.html" aria-label="麦芒的产品手记，返回首页"><span class="brandmark" aria-hidden="true"><i></i><i></i><i></i></span>麦芒</a>
-<nav aria-label="主导航"><a href="../index.html">首页</a><a href="../portfolio/index.html">作品集</a><a href="../index.html#practice">关于我</a></nav></div></header>
-<main id="main"><div class="wrap demo"><div class="crumb"><a href="../projects/installer.html">安装助手案例</a><span>/</span>脱敏 Demo</div><div class="eyebrow"><i></i> INTERACTIVE DEMO</div><h1>安装引导演示</h1><p>在虚构的 Windows 环境中体验引导与重试。页面只模拟操作反馈。</p><div class="sim"><div class="simnav" aria-label="演示步骤"><span>准备</span><span>检查</span><span>完成</span></div><div id="demo-body" aria-live="polite"></div></div><noscript>请启用 JavaScript 以体验流程演示。</noscript><a class="textlink" href="../projects/installer.html">返回安装助手案例</a></div></main>
-<footer><div class="wrap foot"><span>麦芒 <b>/</b> 产品手记</span><a href="../portfolio/index.html">浏览作品集</a></div></footer>
-</body></html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>Codex 安装助手 · 逐步安装工作台</title>
+  <style>
+    :root { --green:#00704a; --deep:#054d37; --mint:#eef7f1; --amber:#89540c; --line:#dae3dd; --ink:#182d23; --muted:#526259; }
+    * { box-sizing:border-box; }
+    body { margin:0; min-height:100vh; padding:clamp(12px,3.6vw,52px) 18px; background:#eff3f0; color:var(--ink); font:14px/1.55 "Segoe UI","Microsoft YaHei UI",system-ui,sans-serif; }
+    button { font:inherit; cursor:pointer; color:var(--deep); background:white; border:1px solid #98b1a0; border-radius:5px; padding:8px 16px; }
+    button:hover { background:#edf5ee; }
+    button:focus-visible,summary:focus-visible { outline:3px solid #ab7722; outline-offset:3px; }
+    .primary { background:var(--green); color:#fff; border-color:var(--green); font-weight:650; }
+    .primary:hover { background:var(--deep); }
+    .window { margin:auto; max-width:1160px; background:white; border:1px solid #c9d7cd; border-radius:12px; box-shadow:0 12px 38px #203d2911; overflow:hidden; }
+    header { display:flex; align-items:center; gap:18px; border-bottom:1px solid var(--line); background:#e5f3e9; padding:20px 28px; }
+    .appicon { flex:none; display:grid; place-items:center; width:54px; height:54px; background:var(--green); color:white; border-radius:11px; font:700 25px Consolas,monospace; }
+    h1,h2,h3,p { margin:0; }
+    h1 { color:var(--deep); font-size:clamp(23px,3vw,32px); line-height:1.25; letter-spacing:-.025em; }
+    header p { margin-top:5px; color:#486452; }
+    .notice { margin-left:auto; max-width:250px; text-align:right; color:#45604e; font-size:13px; }
+    main { padding:20px 26px 22px; }
+    .summary { display:flex; align-items:baseline; justify-content:space-between; gap:12px; }
+    h2 { font-size:17px; }
+    #count { color:var(--green); font-weight:650; }
+    progress { width:100%; height:8px; border:0; display:block; border-radius:8px; overflow:hidden; background:#e3ebe5; margin:9px 0; accent-color:var(--green); }
+    progress::-webkit-progress-bar { background:#e3ebe5; } progress::-webkit-progress-value { background:var(--green); }
+    .envline { display:flex; justify-content:space-between; flex-wrap:wrap; gap:4px 16px; color:var(--muted); font-size:13px; }
+    .sheet { margin-top:22px; border:1px solid var(--line); border-radius:7px; overflow:hidden; }
+    .sheet h2 { padding:11px 15px; border-bottom:1px solid var(--line); }
+    table { width:100%; border-collapse:collapse; text-align:left; }
+    th,td { padding:7px 12px; border-bottom:1px solid #e4ebe6; }
+    th { color:var(--muted); background:#f5f8f5; font-weight:600; font-size:12px; }
+    td:first-child,th:first-child { width:62px; text-align:center; }
+    td:first-child { font:500 13px Consolas,monospace; color:var(--muted); }
+    td:nth-child(2) { width:25%; font-weight:600; }
+    td:nth-child(3) { width:95px; white-space:nowrap; }
+    td:nth-child(4) { color:var(--muted); font-size:13px; }
+    td:last-child { width:112px; }
+    tr:last-child td { border:0; } tr.current { background:#f2f9f4; box-shadow:inset 3px 0 var(--green); }
+    .label { display:inline-flex; align-items:center; gap:6px; font-size:12px; color:var(--amber); }
+    .label::before { content:""; width:6px; height:6px; border-radius:50%; background:currentColor; }
+    .label.done { color:#126745; } .label.error { color:#a33a23; }
+    .row-action { padding:4px 10px; min-width:80px; font-size:13px; }
+    .toolbar { display:flex; gap:10px; flex-wrap:wrap; margin:16px 0 0; }
+    #feedback { font-size:13px; color:var(--muted); margin:10px 0 0; min-height:20px; }
+    dialog { width:min(460px,calc(100vw - 30px)); padding:24px; border:1px solid #b7cbbc; color:var(--ink); border-radius:9px; box-shadow:0 22px 80px #142f2340; max-height:85vh; overflow:auto; }
+    dialog::backdrop { background:#172e235c; }
+    .dialog-head { display:flex; gap:12px; justify-content:space-between; align-items:start; }
+    .dialog-head h2 { font-size:20px; }
+    .close { flex:none; padding:0 8px; font-size:19px; border:0; }
+    #detail { white-space:pre-line; margin-top:14px; line-height:1.8; }
+    #actions { display:flex; flex-wrap:wrap; gap:8px; margin-top:22px; }
+    @media(max-width:740px) {
+      body { padding:0; background:white; } .window { border:0; border-radius:0; }
+      header { padding:18px 15px; gap:12px; flex-wrap:wrap; } .appicon { width:44px; height:44px; font-size:20px; }
+      .notice { width:100%; max-width:none; margin:0; text-align:left; font-size:12px; }
+      main { padding:16px 13px; } .sheet { margin-top:16px; }
+      table,tbody { display:block; } thead { position:absolute; width:1px; height:1px; clip-path:inset(50%); overflow:hidden; }
+      tbody tr { display:grid; grid-template-columns:24px minmax(0,1fr) auto; align-items:center; gap:4px 8px; padding:10px; border-bottom:1px solid var(--line); }
+      tbody tr:last-child { border:0; } tbody td { border:0; padding:0; } tbody td:nth-child(n) { width:auto; }
+      td:first-child { grid-column:1; grid-row:1; } td:nth-child(2) { grid-column:2; grid-row:1; }
+      td:nth-child(3) { grid-column:3; grid-row:1; text-align:right; }
+      td:nth-child(4) { grid-column:2; grid-row:2; } td:last-child { grid-column:3; grid-row:2; text-align:right; }
+      .row-action { min-width:64px; } .toolbar button { flex:auto; }
+    }
+    .embedded body { min-height:0; padding:0; background:white; }
+    .embedded .window { border:0; border-radius:0; box-shadow:none; max-width:none; }
+    @media(prefers-reduced-motion:no-preference) { progress::-webkit-progress-value { transition:width .22s ease; } }
+  </style>
+</head>
+<body>
+<div class="window">
+  <header>
+    <span class="appicon" aria-hidden="true">&gt;_</span>
+    <div><h1>Codex 安装助手</h1><p>Windows 版 · 逐步安装工作台</p></div>
+    <p class="notice">交互演示使用虚构环境，安装、登录与授权均在页面内模拟。</p>
+  </header>
+  <main>
+    <section aria-labelledby="progress-title">
+      <div class="summary"><h2 id="progress-title">总体进度</h2><span id="count"></span></div>
+      <progress id="progress" value="0" max="8" aria-label="已完成步骤"></progress>
+      <div class="envline"><span>示例设备 · Windows 11 / x64</span><span id="next"></span></div>
+    </section>
+    <section class="sheet" aria-labelledby="steps-title">
+      <h2 id="steps-title">安装步骤</h2>
+      <table aria-label="安装步骤与操作">
+        <thead><tr><th scope="col">步骤</th><th scope="col">操作步骤</th><th scope="col">状态</th><th scope="col">当前结果 / 说明</th><th scope="col">操作</th></tr></thead>
+        <tbody id="rows"></tbody>
+      </table>
+    </section>
+    <div class="toolbar" aria-label="工作台操作">
+      <button class="primary" id="guide">开始 / 继续安装</button>
+      <button id="detect">重新检测</button><button id="repair">一键修复</button><button id="tools">辅助工具 ▾</button>
+    </div>
+    <p id="feedback" role="status"></p>
+    <noscript>请启用 JavaScript 以操作安装工作台。</noscript>
+  </main>
+</div>
+<dialog id="popup" aria-labelledby="dialog-title">
+  <div class="dialog-head"><h2 id="dialog-title"></h2><button id="close" class="close" aria-label="关闭">×</button></div>
+  <p id="detail"></p><div id="actions"></div>
+</dialog>
+<script>
+'use strict';
+if (window.self !== window.top) document.documentElement.classList.add('embedded');
+// Only the values in this fixture change during a session.
+const steps = [
+  {name:'准备网络订阅', status:'待准备', action:'选择订阅', note:'选择演示用的订阅配置。', prompt:'使用内置的示例订阅继续，无需填写地址或购买服务。', confirm:'使用示例订阅', result:'示例订阅已就绪。'},
+  {name:'安装 Clash Verge', status:'待安装', action:'安装', note:'为示例设备准备网络客户端。', prompt:'模拟安装并启动网络客户端，完成后即可导入配置。', confirm:'模拟安装', result:'已检测到示例客户端正在运行。'},
+  {name:'导入订阅并开启系统代理', status:'待配置', action:'导入 / 检测', note:'客户端已就绪后，可导入示例配置并测试连接。', prompt:'模拟导入订阅、打开系统代理，再检查连接结果。', confirm:'导入并检测', result:'示例配置已导入，连接检测通过。'},
+  {name:'注册并登录 ChatGPT', status:'本人操作', action:'模拟登录', note:'由使用者确认登录结果。', prompt:'在实际流程中，这一步由使用者完成登录。在这里确认示例会话，即可继续。', confirm:'确认示例登录', result:'使用者已确认示例会话。'},
+  {name:'开通 ChatGPT Plus', status:'待确认', action:'模拟开通', note:'核对示例账号的使用权限。', prompt:'此示例账号已具备演示所需的权限。确认后继续，无需付款。', confirm:'确认示例权益', result:'示例账号权益已确认。'},
+  {name:'安装 ChatGPT 桌面应用（含 Codex）', status:'待安装', action:'安装', note:'安装示例桌面应用并验证启动。', prompt:'模拟完成桌面应用的安装与首次启动，随后返回工作台查看结果。', confirm:'模拟安装并启动', result:'桌面应用已就绪，启动验证通过。'},
+  {name:'安装并验证示例 Skill', status:'待安装', action:'安装 Skill', note:'加载演示技能并检查识别结果。', prompt:'将虚构的「文档整理」技能加入示例环境，再验证能否识别。', confirm:'安装并验证', result:'文档整理 Skill 已通过自检。'},
+  {name:'配置飞书 CLI 与授权', status:'待授权', action:'配置 / 授权', note:'配置协作工具，并由使用者确认授权。', prompt:'模拟安装 CLI 和配套技能，然后确认示例授权。此页面无需输入账号或验证码。', confirm:'确认模拟授权', result:'协作工具与示例授权均已就绪。'}
+];
+const byId = id => document.getElementById(id);
+const popup = byId('popup');
+let states = [], log = [], brokenNetwork = false;
+let returnFocus = null;
+function button(text, callback, className = '') {
+  const element = document.createElement('button');
+  element.type = 'button';
+  element.textContent = text;
+  element.className = className;
+  element.addEventListener('click', callback);
+  return element;
+}
+function message(text) {
+  log.push(text);
+  byId('feedback').textContent = text;
+}
+function modal(title, detail, actions) {
+  byId('dialog-title').textContent = title;
+  byId('detail').textContent = detail;
+  byId('actions').replaceChildren(...actions.map(([text, fn], i) => button(text, fn, i ? '' : 'primary')));
+  if (!popup.open) {
+    returnFocus = document.activeElement;
+    popup.showModal();
+  }
+  byId('actions').firstElementChild?.focus();
+}
+function closeModal() { popup.close(); }
+byId('close').onclick = closeModal;
+popup.addEventListener('close', () => {
+  const key = returnFocus?.dataset.step;
+  const target = key === undefined ? returnFocus : document.querySelector('[data-step="' + key + '"]');
+  if (target?.isConnected) target.focus({preventScroll:true});
+});
+function nextIndex() { return states.findIndex(s => s !== 'done'); }
+function row(cells, action, current = false) {
+  const tr = document.createElement('tr');
+  if (current) tr.className = 'current';
+  for (const item of [...cells, action]) {
+    const cell = document.createElement('td');
+    cell.append(item);
+    tr.append(cell);
+  }
+  return tr;
+}
+function badge(label, state) {
+  const element = document.createElement('span');
+  element.className = 'label ' + state;
+  element.textContent = label;
+  return element;
+}
+function render() {
+  const next = nextIndex(), count = states.filter(s => s === 'done').length;
+  byId('count').textContent = count + ' / 8 已完成';
+  byId('progress').value = count;
+  byId('next').textContent = next < 0 ? '全部步骤已完成，可进行总检' : '下一步 · ' + steps[next].name;
+  const rows = steps.map((step, i) => {
+    const state = states[i], done = state === 'done', fault = state === 'error';
+    const act = button(done ? '查看结果' : fault ? '修复 / 复查' : step.action, () => openStep(i), 'row-action');
+    act.dataset.step = i;
+    act.setAttribute('aria-label', '第 ' + (i+1) + ' 步 · ' + act.textContent);
+    return row([String(i+1).padStart(2,'0'), step.name,
+      badge(done ? '已完成' : fault ? '需修复' : step.status, state),
+      done ? step.result : fault ? '示例连接超时，可修复后复查。' : step.note], act, i === next);
+  });
+  rows.push(row(['✓','完成检查',badge(count === 8 ? '就绪' : '待检查', count === 8 ? 'done' : ''),
+    '汇总八步检测结果，查看尚待处理的项目。'],button('一键检查', report, 'row-action')));
+  byId('rows').replaceChildren(...rows);
+}
+function openStep(i, guided = false) {
+  const step = steps[i], title = '第 ' + (i+1) + ' 步 · ' + step.name;
+  if (states[i] === 'done') return modal(title, step.result, [['返回工作台', closeModal]]);
+  const next = nextIndex();
+  if (i > next) {
+    return modal(title, '请先完成第 ' + (next+1) + ' 步「' + steps[next].name + '」。当前进度会保留。',
+      [['前往待办步骤', () => openStep(next, guided)], ['返回工作台', closeModal]]);
+  }
+  const fault = states[i] === 'error';
+  modal(title, fault ? '检测到示例网络配置异常。恢复配置并再次检测后可从当前步骤继续。' : step.prompt,
+    [[fault ? '修复并复查' : step.confirm, () => {
+      if (i === 2 && brokenNetwork && !fault) {
+        states[i] = 'error';
+        message('第 3 步检测未通过，其他步骤的进度已保留。');
+        render();
+        return openStep(i, guided);
+      }
+      if (i === 2) brokenNetwork = false;
+      states[i] = 'done';
+      message('第 ' + (i+1) + ' 步完成 · ' + step.result);
+      render();
+      if (guided && nextIndex() >= 0) return openStep(nextIndex(), true);
+      if (nextIndex() < 0) return report();
+      closeModal();
+    }], ['稍后继续', closeModal]]);
+}
+function report() {
+  const pending = steps.filter((_,i) => states[i] !== 'done');
+  const count = steps.length - pending.length;
+  message('完成检查 · ' + count + ' / 8 已就绪。');
+  modal('完成检查', pending.length
+    ? '已完成 ' + count + ' 项。以下步骤仍需处理：\n\n' + pending.map(s => '· ' + s.name).join('\n')
+    : '8 / 8 项检查通过。示例桌面应用、Skill 与协作工具均已就绪。',
+    pending.length ? [['继续安装', () => openStep(nextIndex(), true)], ['返回工作台', closeModal]]
+      : [['返回工作台', closeModal], ['查看安装日志', showLog]]);
+}
+function detect() {
+  if (brokenNetwork && states[2] !== 'done') states[2] = 'error';
+  render();
+  message(states.includes('error') ? '已重新检测 · 第 3 步连接异常，可选择「一键修复」。'
+    : '已重新检测 · ' + states.filter(s => s === 'done').length + ' 项已完成，未发现示例故障。');
+}
+function repair() {
+  if (!brokenNetwork) return modal('一键修复', '诊断完成，示例环境中没有需要修复的故障。', [['返回工作台', closeModal]]);
+  modal('一键修复', '第 3 步的示例网络连接超时。恢复示例配置后将重新检测，已完成步骤会保留。',
+    [['修复并复查', () => {
+      brokenNetwork = false;
+      states[2] = 'done';
+      render();
+      message('修复完成 · 第 3 步连接已恢复并通过复查。');
+      closeModal();
+    }], ['取消', closeModal]]);
+}
+function showLog() { modal('安装日志', log.map((line, i) => (i+1) + '. ' + line).join('\n'), [['返回工作台', closeModal]]); }
+function reset(mode) {
+  states = steps.map((_,i) => mode !== 'fresh' && i < 2 ? 'done' : 'pending');
+  brokenNetwork = mode === 'fault';
+  log = [];
+  render();
+  message(mode === 'fault' ? '已载入连接故障样例，点击「重新检测」可定位异常。'
+    : mode === 'fresh' ? '已载入全新设备样例，可从第 1 步开始。' : '已读取示例进度，可从第 3 步继续。');
+}
+function switchSample(mode) {
+  modal('切换演示样例', '切换后，本次页面中的安装进度与日志将重置。', [
+    ['切换样例', () => { reset(mode); closeModal(); }], ['取消', closeModal]]);
+}
+byId('guide').onclick = () => nextIndex() < 0 ? report() : openStep(nextIndex(), true);
+byId('detect').onclick = detect;
+byId('repair').onclick = repair;
+byId('tools').onclick = () => modal('辅助工具', '查看当前会话的安装记录，或切换设备样例。', [
+  ['查看安装日志', showLog], ['从第一步体验', () => switchSample('fresh')], ['载入连接故障', () => switchSample('fault')]]);
+reset('resume');
+</script>
+</body>
+</html>

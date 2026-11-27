@@ -4,13 +4,29 @@
 <meta name="color-scheme" content="light"><meta name="robots" content="noindex,nofollow">
 <meta name="author" content="麦芒">
 <meta name="description" content="麦芒的产品手记，记录门店现场的业务问题、AI 产品原型与设计案例。">
-<title>古茗 Codex 安装助手 · 麦芒的产品手记</title>
+<title>Codex 安装助手 · 麦芒的产品手记</title>
 <link rel="icon" href="../assets/icon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="../assets/site.css"><script src="../assets/site.js" defer></script>
 </head><body class="portfolio">
 <a class="skip" href="#main">跳到正文</a>
 <header><div class="wrap nav"><a class="brand" href="../index.html" aria-label="麦芒的产品手记，返回首页"><span class="brandmark" aria-hidden="true"><i></i><i></i><i></i></span>麦芒</a>
 <nav aria-label="主导航"><a href="../index.html">首页</a><a href="../portfolio/index.html">作品集</a><a href="../index.html#practice">关于我</a></nav></div></header>
-<main id="main"><div class="wrap case"><div class="crumb"><a href="../portfolio/index.html#projects">作品集</a><span>/</span>企业内部流程优化</div><div class="casehead"><div class="eyebrow"><i></i> 企业内部流程优化</div><h1>古茗 Codex 安装助手</h1><span class="status ready">已有案例</span><p>把工具安装拆成清晰的步骤，让第一次使用的人也能理解每一步该做什么。</p></div><div class="casegrid"><aside><nav aria-label="案例目录"><a href="#question">设计问题</a><a href="#path">设计思路</a><a href="#experience">案例体验</a></nav></aside><div class="sections"><section id="question"><h2>设计问题</h2><p class="question">第一次安装工具时，用户如何知道自己到了哪一步，遇到问题又该从哪里继续？</p></section><section id="path"><h2>设计思路</h2><div class="skillrows"><article><h3>开始之前</h3><p>先说明本次要完成的任务，以及用户需要准备的环境。</p></article><article><h3>分步引导</h3><p>每次集中呈现一个动作，完成后再进入下一步。</p></article><article><h3>处理异常</h3><p>给遇到阻碍的用户一条可理解、可重试的路径。</p></article></div></section><section id="experience"><div class="sectiontitle"><div class="eyebrow"><i></i> INTERACTIVE DEMO</div><h2>安装引导体验</h2></div><p>用虚构环境走一遍准备、检查与完成提示。所有选择仅在当前浏览器页面生效。</p><a class="button primary" href="../demos/installer.html">体验脱敏 Demo</a></section></div></div><div class="casenext"><span>下一个项目</span><a href="cup-rack.html">模块化杯架</a></div></div></main>
+<main id="main"><div class="wrap case"><div class="crumb"><a href="../portfolio/index.html#projects">作品集</a><span>/</span>企业内部流程优化</div><div class="casehead"><div class="eyebrow"><i></i> 企业内部流程优化</div><h1>Codex 安装助手</h1><span class="status ready">已有案例</span><p>Windows 逐步安装工作台。点击下方任一步骤查看操作，也可以从当前进度继续安装。</p></div><section id="experience" aria-label="可操作的安装工作台">
+  <p><a class="button primary" href="../demos/installer.html">独立打开工作台 ↗</a></p>
+  <iframe id="workbench" title="Codex 八步安装工作台，可直接操作" src="../demos/installer.html" style="display:block;width:100%;height:820px;box-sizing:border-box;border:1px solid #c9d7cd;border-radius:9px;background:white"></iframe>
+</section>
+<script>
+  const frame = document.getElementById('workbench');
+  function fitWorkbench() {
+    if (location.protocol === 'file:') return;
+    const body = frame.contentDocument?.body;
+    if (!body?.querySelector('.window')) return;
+    const resize = () => { frame.style.height = Math.ceil(body.getBoundingClientRect().height + 2) + 'px'; };
+    resize();
+    new ResizeObserver(resize).observe(body);
+  }
+  frame.addEventListener('load', fitWorkbench);
+  if (location.protocol !== 'file:' && frame.contentDocument?.readyState === 'complete') fitWorkbench();
+</script><div class="casegrid"><aside><nav aria-label="案例目录"><a href="#question">设计问题</a><a href="#path">设计思路</a><a href="#experience">操作工作台</a></nav></aside><div class="sections"><section id="question"><h2>设计问题</h2><p class="question">第一次安装工具时，用户如何知道自己到了哪一步，遇到问题又该从哪里继续？</p></section><section id="path"><h2>设计思路</h2><div class="skillrows"><article><h3>查看进度</h3><p>同一张表显示全部八步。绿色表示已就绪，待办项列出操作入口；顶部进度随操作更新。</p></article><article><h3>分步引导</h3><p>使用者可以逐行查看，也可以从第一个待办步骤进入顺序引导。本人操作的步骤需要单独确认。</p></article><article><h3>处理异常</h3><p>连接故障会定位到对应行。修复并复查后保留其他已完成步骤，辅助工具中可查看操作日志。</p></article></div></section></div></div><div class="casenext"><span>下一个项目</span><a href="cup-rack.html">模块化杯架</a></div></div></main>
 <footer><div class="wrap foot"><span>麦芒 <b>/</b> 产品手记</span><a href="../portfolio/index.html">浏览作品集</a></div></footer>
 </body></html>
