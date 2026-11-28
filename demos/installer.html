@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light">
-  <title>Codex 安装助手 · 逐步安装工作台</title>
+  <title>Kone Assistant · 麦芒的产品手记</title>
   <style>
     :root { --green:#00704a; --deep:#054d37; --mint:#eef7f1; --amber:#89540c; --line:#dae3dd; --ink:#182d23; --muted:#526259; }
     * { box-sizing:border-box; }
@@ -66,17 +66,21 @@
       td:nth-child(4) { grid-column:2; grid-row:2; } td:last-child { grid-column:3; grid-row:2; text-align:right; }
       .row-action { min-width:64px; } .toolbar button { flex:auto; }
     }
+    .demo-nav { max-width:1160px; margin:0 auto 12px; display:flex; gap:20px; justify-content:space-between; }
+    .demo-nav a { color:var(--deep); padding:5px 0; text-underline-offset:4px; }
+    .embedded .demo-nav { display:none; }
     .embedded body { min-height:0; padding:0; background:white; }
     .embedded .window { border:0; border-radius:0; box-shadow:none; max-width:none; }
     @media(prefers-reduced-motion:no-preference) { progress::-webkit-progress-value { transition:width .22s ease; } }
   </style>
 </head>
 <body>
+<nav class="demo-nav" aria-label="作品集导航"><a href="../portfolio/index.html">← 返回作品集</a><a href="../projects/installer.html">查看案例说明</a></nav>
 <div class="window">
   <header>
     <span class="appicon" aria-hidden="true">&gt;_</span>
-    <div><h1>Codex 安装助手</h1><p>Windows 版 · 逐步安装工作台</p></div>
-    <p class="notice">交互演示使用虚构环境，安装、登录与授权均在页面内模拟。</p>
+    <div><h1>Kone Assistant</h1><p>Codex 安装助手 · Windows 工作台</p></div>
+    <p class="notice">脱敏交互演示。安装、登录与授权均在示例环境中模拟。</p>
   </header>
   <main>
     <section aria-labelledby="progress-title">
@@ -84,6 +88,11 @@
       <progress id="progress" value="0" max="8" aria-label="已完成步骤"></progress>
       <div class="envline"><span>示例设备 · Windows 11 / x64</span><span id="next"></span></div>
     </section>
+    <div class="toolbar" aria-label="工作台操作">
+      <button class="primary" id="guide">开始 / 继续安装</button>
+      <button id="detect">重新检测</button><button id="repair">一键修复</button><button id="tools">辅助工具 ▾</button>
+    </div>
+    <p id="feedback" role="status"></p>
     <section class="sheet" aria-labelledby="steps-title">
       <h2 id="steps-title">安装步骤</h2>
       <table aria-label="安装步骤与操作">
@@ -91,11 +100,6 @@
         <tbody id="rows"></tbody>
       </table>
     </section>
-    <div class="toolbar" aria-label="工作台操作">
-      <button class="primary" id="guide">开始 / 继续安装</button>
-      <button id="detect">重新检测</button><button id="repair">一键修复</button><button id="tools">辅助工具 ▾</button>
-    </div>
-    <p id="feedback" role="status"></p>
     <noscript>请启用 JavaScript 以操作安装工作台。</noscript>
   </main>
 </div>

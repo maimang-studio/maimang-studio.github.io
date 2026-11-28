@@ -8,30 +8,5 @@
     "group": "3",
     "status": "已有案例",
     "icon": "▦"
-  },
-  "launch": {
-    "group": "0",
-    "status": "案例建设中",
-    "icon": "▤"
-  },
-  "workbench": {
-    "group": "1",
-    "status": "案例建设中",
-    "icon": "⊞"
-  },
-  "display": {
-    "group": "1",
-    "status": "展示方案",
-    "icon": "⌗"
-  },
-  "product-image": {
-    "group": "2",
-    "status": "展示方案",
-    "icon": "▧"
-  },
-  "product-video": {
-    "group": "2",
-    "status": "展示方案",
-    "icon": "▷"
   }
 }

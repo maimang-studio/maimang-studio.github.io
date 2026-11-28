@@ -20,7 +20,8 @@
   }
   function card(project, type, featured) {
     const link = element('a', 'project ' + (featured ? 'featured' : 'compact'));
-    link.href = caseUrl(project.id);
+    const opensWorkbench = project.id === 'installer';
+    link.href = opensWorkbench ? url('demos/installer.html') : caseUrl(project.id);
     link.dataset.group = type.group;
     const art = element('div', featured ? 'cardart' : 'listicon');
     const path = project.cover;
@@ -41,7 +42,7 @@
     meta.append(element('span','',groups[Number(type.group)]),
       element('span', 'status' + (type.status === '已有案例' ? ' ready' : ''), type.status));
     body.append(meta, element('h3','',project.title), element('p','',project.summary));
-    link.append(art, body, element('span','detailhint','查看案例'));
+    link.append(art, body, element('span','detailhint',opensWorkbench ? '打开交互演示' : '查看案例'));
     return link;
   }
   function render(data, types) {

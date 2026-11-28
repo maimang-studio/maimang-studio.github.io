@@ -18,8 +18,8 @@ content:
         description: 调整列表顺序即可排序。前两项同时显示在首页的代表作品区。
         type: object
         list:
-          min: 7
-          max: 7
+          min: 2
+          max: 2
           collapsible:
             collapsed: true
             summary: "{index} · {fields.title}"
